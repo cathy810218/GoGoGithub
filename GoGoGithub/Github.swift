@@ -8,11 +8,16 @@
 
 import UIKit
 
+let kOAuthBaseURLString = "https://github.com/login/oauth/"
+
+typealias GithubOAuthCompletion = (Bool) -> Void // success flag
+
 enum GithubAuthError: Error {
     case extractingCode
 }
-
-let kOAuthBaseURLString = "https://github.com/login/oauth/"
+enum SaveOptions {
+    case userDefaults
+}
 
 class Github {
     
@@ -24,7 +29,6 @@ class Github {
             parameterString += "&\(key)=\(value)"
             
         }
-        
         if let requestURL = URL(string: "\(kOAuthBaseURLString)authorize?client_id=\(kGithubClientID)\(parameterString)") {
             print(requestURL)
             
@@ -41,4 +45,47 @@ class Github {
         }
         return code
     }
+    
+    func tokenRequestFor(url: URL, saveOptions: SaveOptions, completion: @escaping GithubOAuthCompletion) {
+        
+        // helper method to make sure the completion is being called on the main thread
+        func complete(success: Bool) {
+            OperationQueue.main.addOperation {
+                completion(success)
+            }
+        }
+        
+        do {
+            let code = try self.getCodeFrom(url: url)
+            let requestString = "\(kOAuthBaseURLString)=access_token?client_id=\(kGithubClientID)&client_secret=\(kGithubClientSecret)&code=\(code)"
+            
+            if let requestURL = URL(string: requestString) {
+                let session = URLSession(configuration: URLSessionConfiguration.default)
+                session.dataTask(with: requestURL, completionHandler: { (data, response, error) in
+                    if let error = error {
+                        complete(success: false)
+                        print("error: \(error)")
+                    }
+                    
+                    guard let data = data else {
+                        complete(success: false)
+                        return
+                    }
+                    
+                    if let dataString = String(data: data, encoding: .utf8) {
+                        print(dataString)
+                        complete(success: true)
+                    }
+                    
+                }).resume() // IMPORTANT!
+            }
+            
+        } catch {
+            print(error) // defined next to error
+            complete(success: false)
+        }
+    }
+    
+    
+    
 }
