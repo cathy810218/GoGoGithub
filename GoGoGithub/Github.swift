@@ -37,15 +37,6 @@ class Github {
         
     }
     
-    func getCodeFrom(url: URL) throws -> String {
-        
-        // separate the key value paring
-        guard let code = url.absoluteString.components(separatedBy: "=").last else {
-            throw GithubAuthError.extractingCode
-        }
-        return code
-    }
-    
     func tokenRequestFor(url: URL, saveOptions: SaveOptions, completion: @escaping GithubOAuthCompletion) {
         
         // helper method to make sure the completion is being called on the main thread
@@ -57,7 +48,7 @@ class Github {
         
         do {
             let code = try self.getCodeFrom(url: url)
-            let requestString = "\(kOAuthBaseURLString)=access_token?client_id=\(kGithubClientID)&client_secret=\(kGithubClientSecret)&code=\(code)"
+            let requestString = "\(kOAuthBaseURLString)access_token?client_id=\(kGithubClientID)&client_secret=\(kGithubClientSecret)&code=\(code)"
             
             if let requestURL = URL(string: requestString) {
                 let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -72,12 +63,16 @@ class Github {
                         return
                     }
                     
-                    if let dataString = String(data: data, encoding: .utf8) {
-                        print(dataString)
+                    if let dataString = String(data: data, encoding: .utf8 ) {
+                        if (saveOptions == SaveOptions.userDefaults) {
+                            if UserDefaults.standard.save(accessToken: dataString) {
+                                print("Save access token")
+                            }
+                        }
                         complete(success: true)
                     }
-                    
                 }).resume() // IMPORTANT!
+
             }
             
         } catch {
@@ -86,6 +81,12 @@ class Github {
         }
     }
     
-    
-    
+    private func getCodeFrom(url: URL) throws -> String {
+        
+        // separate the key value paring
+        guard let code = url.absoluteString.components(separatedBy: "=").last else {
+            throw GithubAuthError.extractingCode
+        }
+        return code
+    }
 }

@@ -107,7 +107,6 @@
 				6BA4F8761E92C93700DD9A9E /* Controller */,
 				6BA4F8751E92C93200DD9A9E /* View */,
 				6BA4F8741E92C92C00DD9A9E /* Model */,
-				6BA4F84B1E92C91300DD9A9E /* Assets.xcassets */,
 			);
 			path = GoGoGithub;
 			sourceTree = "<group>";
@@ -162,6 +161,7 @@
 				6BA4F87B1E92EC1A00DD9A9E /* FoundationExtension.swift */,
 				6BA4F8771E92C9E900DD9A9E /* Keys.swift */,
 				6BA4F8501E92C91300DD9A9E /* Info.plist */,
+				6BA4F84B1E92C91300DD9A9E /* Assets.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
