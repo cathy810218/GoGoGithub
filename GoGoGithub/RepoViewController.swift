@@ -12,6 +12,7 @@ class RepoViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    
     var allRepos = [Repo]() {
         didSet {
             tableView.reloadData()
@@ -20,11 +21,12 @@ class RepoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UINib.init(nibName: RepoTableViewCell.identifier, bundle: Bundle.main), forCellReuseIdentifier: RepoTableViewCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
         searchBar.delegate = self
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tableView.addGestureRecognizer(tap)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+//        tableView.addGestureRecognizer(tap)
         update()
     }
     
@@ -36,8 +38,22 @@ class RepoViewController: UIViewController {
         }
     }
     
-    func dismissKeyboard() {
-        searchBar.resignFirstResponder()
+//    func dismissKeyboard() {
+//        searchBar.resignFirstResponder()
+//    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if DetailViewController.identifier == segue.identifier {
+            if let selectedIndex = self.tableView.indexPathForSelectedRow {
+                let selectedRepo = self.allRepos[selectedIndex.row]
+                
+                guard let destinationController = segue.destination as? DetailViewController else {
+                    return
+                }
+                destinationController.repo = selectedRepo
+            }
+        }
     }
 }
 
@@ -84,11 +100,14 @@ extension RepoViewController: UITableViewDataSource, UITableViewDelegate {
         cell.nameLabel.text = allRepos[indexPath.row].name
         cell.descriptionLabel.text = allRepos[indexPath.row].description
         cell.languageLabel.text = allRepos[indexPath.row].language
-        cell.dateLabel.text = allRepos[indexPath.row].date
         return cell
     }
  
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         searchBar.resignFirstResponder()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: DetailViewController.identifier, sender: nil)
     }
 }

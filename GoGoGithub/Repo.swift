@@ -14,14 +14,18 @@ class Repo {
     let description: String?
     let language: String?
     let date: String
+    let isForked: Bool
+    let numOfStars: Int
     
     init?(json: [String: Any]) {
         
-        if let name = json["name"] as? String, let date = json["updated_at"] as? String {
+        if let name = json["name"] as? String, let date = json["created_at"] as? String, let isForked = json["fork"] as? Bool, let numOfStars = json["stargazers_count"] as? Int {
             self.name = name
             let index = date.range(of: "T", options: .backwards)?.lowerBound
             let newDate = date.substring(to: index!)
             self.date = String(describing: newDate)
+            self.isForked = isForked
+            self.numOfStars = numOfStars
         } else {
             return nil
         }
