@@ -44,8 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        print("URL is: \(url)")
-        
         let token = UserDefaults.standard.getAccessToken()
         if token == nil {
             Github.shared.tokenRequestFor(url: url, saveOptions: .userDefaults) { (success) in
@@ -57,7 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
- 
         return true
     }
 

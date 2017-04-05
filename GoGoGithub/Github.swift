@@ -34,11 +34,6 @@ class Github {
         self.components = URLComponents()
         self.components.scheme = "https"
         self.components.host = "api.github.com"
-        
-        if let token = UserDefaults.standard.getAccessToken() {
-            let queryItem = URLQueryItem(name: "access_token", value: token)
-            self.components.queryItems = [queryItem]
-        }
     }
     
     func oAuthRequestWith(parameters: [String: String]) {
@@ -85,7 +80,8 @@ class Github {
                         if (saveOptions == SaveOptions.userDefaults) {
                             if let token = self.accessTokenFrom(dataString) {
                                 if UserDefaults.standard.save(accessToken: token) {
-                                    print("Save access token")
+                                    let queryItem = URLQueryItem(name: "access_token", value: token)
+                                    self.components.queryItems = [queryItem]
                                 }
                             }
                         }
@@ -94,7 +90,7 @@ class Github {
                 }).resume() // IMPORTANT!
             }
         } catch {
-            print(error) // defined next to error
+            print(error) // defined next to catch
             complete(success: false)
         }
     }
