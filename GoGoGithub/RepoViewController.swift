@@ -84,7 +84,7 @@ extension RepoViewController: UITableViewDataSource, UITableViewDelegate {
         cell.nameLabel.text = allRepos[indexPath.row].name
         cell.descriptionLabel.text = allRepos[indexPath.row].description
         cell.languageLabel.text = allRepos[indexPath.row].language
-
+        cell.dateLabel.text = allRepos[indexPath.row].date
         return cell
     }
  
