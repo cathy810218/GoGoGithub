@@ -17,6 +17,9 @@
 		6BA4F8781E92C9E900DD9A9E /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4F8771E92C9E900DD9A9E /* Keys.swift */; };
 		6BA4F87A1E92CE5500DD9A9E /* GithubAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4F8791E92CE5500DD9A9E /* GithubAuthViewController.swift */; };
 		6BA4F87C1E92EC1A00DD9A9E /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4F87B1E92EC1A00DD9A9E /* FoundationExtension.swift */; };
+		6BA4F87F1E941E2E00DD9A9E /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4F87E1E941E2E00DD9A9E /* Repo.swift */; };
+		6BA4F8811E94220200DD9A9E /* RepoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4F8801E94220200DD9A9E /* RepoViewController.swift */; };
+		6BA4F8831E94B85300DD9A9E /* RepoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4F8821E94B85300DD9A9E /* RepoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		6BA4F8771E92C9E900DD9A9E /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		6BA4F8791E92CE5500DD9A9E /* GithubAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubAuthViewController.swift; sourceTree = "<group>"; };
 		6BA4F87B1E92EC1A00DD9A9E /* FoundationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
+		6BA4F87E1E941E2E00DD9A9E /* Repo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
+		6BA4F8801E94220200DD9A9E /* RepoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoViewController.swift; sourceTree = "<group>"; };
+		6BA4F8821E94B85300DD9A9E /* RepoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +138,7 @@
 		6BA4F8741E92C92C00DD9A9E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6BA4F87E1E941E2E00DD9A9E /* Repo.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -139,6 +146,7 @@
 		6BA4F8751E92C93200DD9A9E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6BA4F8821E94B85300DD9A9E /* RepoTableViewCell.swift */,
 				6BA4F8481E92C91300DD9A9E /* Main.storyboard */,
 				6BA4F84D1E92C91300DD9A9E /* LaunchScreen.storyboard */,
 			);
@@ -149,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				6BA4F8791E92CE5500DD9A9E /* GithubAuthViewController.swift */,
+				6BA4F8801E94220200DD9A9E /* RepoViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -306,6 +315,9 @@
 				6BA4F8731E92C92200DD9A9E /* Github.swift in Sources */,
 				6BA4F87A1E92CE5500DD9A9E /* GithubAuthViewController.swift in Sources */,
 				6BA4F8781E92C9E900DD9A9E /* Keys.swift in Sources */,
+				6BA4F8831E94B85300DD9A9E /* RepoTableViewCell.swift in Sources */,
+				6BA4F87F1E941E2E00DD9A9E /* Repo.swift in Sources */,
+				6BA4F8811E94220200DD9A9E /* RepoViewController.swift in Sources */,
 				6BA4F87C1E92EC1A00DD9A9E /* FoundationExtension.swift in Sources */,
 				6BA4F8451E92C91300DD9A9E /* AppDelegate.swift in Sources */,
 			);
@@ -560,6 +572,7 @@
 				6BA4F86B1E92C91300DD9A9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6BA4F86C1E92C91300DD9A9E /* Build configuration list for PBXNativeTarget "GoGoGithubTests" */ = {
 			isa = XCConfigurationList;
@@ -568,6 +581,7 @@
 				6BA4F86E1E92C91300DD9A9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6BA4F86F1E92C91300DD9A9E /* Build configuration list for PBXNativeTarget "GoGoGithubUITests" */ = {
 			isa = XCConfigurationList;
@@ -576,6 +590,7 @@
 				6BA4F8711E92C91300DD9A9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

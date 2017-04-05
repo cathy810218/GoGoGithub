@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum Keys: String {
    case accessToken = "access_token"
@@ -24,5 +25,12 @@ extension UserDefaults {
     func save(accessToken: String) -> Bool {
         UserDefaults.standard.set(accessToken, forKey: Keys.accessToken.rawValue)
         return UserDefaults.standard.synchronize()
+    }
+}
+
+
+extension UIResponder {
+    static var identifier: String {
+        return String(describing: self)
     }
 }

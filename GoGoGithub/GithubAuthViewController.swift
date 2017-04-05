@@ -50,5 +50,10 @@ class GithubAuthViewController: UIViewController {
     @IBAction func printTokenButtonPressed(_ sender: Any) {
 
     }
+    
+    func dismiss() {
+        self.view.removeFromSuperview()
+        self.removeFromParentViewController()
+    }
 
 }

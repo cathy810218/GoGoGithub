@@ -10,7 +10,7 @@ import UIKit
 
 let kOAuthBaseURLString = "https://github.com/login/oauth/"
 
-typealias GithubOAuthCompletion = (Bool) -> Void // success flag
+typealias GithubOAuthCompletion = (_ success: Bool) -> Void // success flag
 
 enum GithubAuthError: Error {
     case extractingCode
@@ -21,7 +21,25 @@ enum SaveOptions {
 
 class Github {
     
+    private let session: URLSession
+    private var components: URLComponents
+    
     static let shared = Github()
+    
+    private init() {
+        
+        // only be initialized in init method
+        self.session = URLSession(configuration: .default)
+        
+        self.components = URLComponents()
+        self.components.scheme = "https"
+        self.components.host = "api.github.com"
+        
+        if let token = UserDefaults.standard.getAccessToken() {
+            let queryItem = URLQueryItem(name: "access_token", value: token)
+            self.components.queryItems = [queryItem]
+        }
+    }
     
     func oAuthRequestWith(parameters: [String: String]) {
         var parameterString = "" // after the question mark
@@ -65,16 +83,16 @@ class Github {
                     
                     if let dataString = String(data: data, encoding: .utf8 ) {
                         if (saveOptions == SaveOptions.userDefaults) {
-                            if UserDefaults.standard.save(accessToken: dataString) {
-                                print("Save access token")
+                            if let token = self.accessTokenFrom(dataString) {
+                                if UserDefaults.standard.save(accessToken: token) {
+                                    print("Save access token")
+                                }
                             }
                         }
                         complete(success: true)
                     }
                 }).resume() // IMPORTANT!
-
             }
-            
         } catch {
             print(error) // defined next to error
             complete(success: false)
@@ -88,5 +106,62 @@ class Github {
             throw GithubAuthError.extractingCode
         }
         return code
+    }
+    
+    func getRepos(completion: @escaping ([Repo]?) -> Void){
+        
+        func returnToMain(result: [Repo]?) {
+            OperationQueue.main.addOperation {
+                completion(result)
+            }
+        }
+        self.components.path = "/user/repos"
+        guard let url = self.components.url else {
+            returnToMain(result: nil)
+            return
+        }
+        
+        self.session.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                returnToMain(result: nil)
+                return
+            }
+            
+            if let data = data {
+                var repos = [Repo]()
+                
+                do {
+                    if let rootJson = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [[String: Any]] {
+                        
+                        for eachJson in rootJson {
+                            if let repo = Repo(json: eachJson) {
+                                repos.append(repo)
+                            }
+                        }
+                        returnToMain(result: repos)
+                    }
+                } catch {
+                    print("paring json error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    func accessTokenFrom(_ string: String) -> String? {
+        print(string)
+        
+        if string.contains("access_token") {
+            let components = string.components(separatedBy: "&")
+            for component in components {
+                print(component)
+                
+                if component.contains("access_token") {
+                    let token = component.components(separatedBy: "=").last
+                    
+                    return token
+                }
+            }
+        }
+        return nil
     }
 }
