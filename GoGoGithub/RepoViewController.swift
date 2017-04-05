@@ -17,13 +17,15 @@ class RepoViewController: UIViewController {
             tableView.reloadData()
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        // Do any additional setup after loading the view.
+        searchBar.delegate = self
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tableView.addGestureRecognizer(tap)
         update()
-
     }
     
     func update() {
@@ -33,9 +35,46 @@ class RepoViewController: UIViewController {
             }
         }
     }
-
+    
+    func dismissKeyboard() {
+        searchBar.resignFirstResponder()
+    }
 }
 
+
+extension RepoViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        var repos = [Repo]()
+        for repo in allRepos {
+            let name1 = repo.name.lowercased().replacingOccurrences(of: " ", with: "")
+            let name2 = searchBar.text?.lowercased().replacingOccurrences(of: " ", with: "")
+            if name1 == name2 {
+                repos.append(repo)
+            }
+        }
+        allRepos = repos
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        return searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            update()
+        }
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+     }
+}
+
+
+//MARK: UITableViewDataSource
 extension RepoViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allRepos.count
@@ -48,5 +87,8 @@ extension RepoViewController: UITableViewDataSource, UITableViewDelegate {
 
         return cell
     }
-    
+ 
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        searchBar.resignFirstResponder()
+    }
 }
