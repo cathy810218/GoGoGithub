@@ -31,9 +31,7 @@ class GithubAuthViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didBecomeActive),
                                                name: .UIApplicationDidBecomeActive,
-                                               object: nil)
-        
-        // Do any additional setup after loading the view.
+                                               object: nil)        
     }
     
     func didBecomeActive() {

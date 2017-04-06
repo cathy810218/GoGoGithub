@@ -22,6 +22,7 @@
 		6BA4F8831E94B85300DD9A9E /* RepoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4F8821E94B85300DD9A9E /* RepoTableViewCell.swift */; };
 		6BA4F8881E94FA0300DD9A9E /* RepoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BA4F8871E94FA0300DD9A9E /* RepoTableViewCell.xib */; };
 		6BA4F88A1E94FCA600DD9A9E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4F8891E94FCA600DD9A9E /* DetailViewController.swift */; };
+		6BA4F88C1E95705600DD9A9E /* CustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA4F88B1E95705600DD9A9E /* CustomTransition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		6BA4F8821E94B85300DD9A9E /* RepoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoTableViewCell.swift; sourceTree = "<group>"; };
 		6BA4F8871E94FA0300DD9A9E /* RepoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepoTableViewCell.xib; sourceTree = "<group>"; };
 		6BA4F8891E94FCA600DD9A9E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		6BA4F88B1E95705600DD9A9E /* CustomTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTransition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				6BA4F8441E92C91300DD9A9E /* AppDelegate.swift */,
+				6BA4F88B1E95705600DD9A9E /* CustomTransition.swift */,
 				6BA4F8721E92C92200DD9A9E /* Github.swift */,
 				6BA4F87B1E92EC1A00DD9A9E /* FoundationExtension.swift */,
 				6BA4F8771E92C9E900DD9A9E /* Keys.swift */,
@@ -326,6 +329,7 @@
 				6BA4F8831E94B85300DD9A9E /* RepoTableViewCell.swift in Sources */,
 				6BA4F87F1E941E2E00DD9A9E /* Repo.swift in Sources */,
 				6BA4F8811E94220200DD9A9E /* RepoViewController.swift in Sources */,
+				6BA4F88C1E95705600DD9A9E /* CustomTransition.swift in Sources */,
 				6BA4F87C1E92EC1A00DD9A9E /* FoundationExtension.swift in Sources */,
 				6BA4F8451E92C91300DD9A9E /* AppDelegate.swift in Sources */,
 			);

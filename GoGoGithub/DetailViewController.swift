@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class DetailViewController: UIViewController {
 
@@ -17,38 +18,24 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var numOfStarsLabel: UILabel!
     @IBOutlet weak var isForkLabel: UILabel!
     
-    var repo: Repo?
+    var repo: Repo!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let repo = repo {
-            repoNameLabel.text = repo.name
-            descriptionLabel.text = repo.description
-            languageLabel.text = repo.language
-            createDateLabel.text = repo.date
-            numOfStarsLabel.text = "Stars: \(repo.numOfStars)"
-            isForkLabel.text = repo.isForked ? "Forked" : "Not forked"
-        }
-        // Do any additional setup after loading the view.
+        repoNameLabel.text = repo.name
+        descriptionLabel.text = repo.description
+        languageLabel.text = repo.language
+        createDateLabel.text = repo.date
+        numOfStarsLabel.text = "Stars: \(repo.numOfStars)"
+        isForkLabel.text = repo.isForked ? "Forked" : "Not forked"
     }
 
     @IBAction func backButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func openSafariPressed(_ sender: Any) {
+        let svc = SFSafariViewController(url: URL(string: repo.url)!)
+        present(svc, animated: true, completion: nil)
     }
-    */
-
 }

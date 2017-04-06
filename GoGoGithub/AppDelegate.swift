@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if success {
                     if let repoController = self.repoController, let authController = self.authController {
                         authController.dismiss()
-                        repoController.update()
+                        repoController.getAllRepos()
                     }
                 }
             }

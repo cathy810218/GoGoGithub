@@ -11,21 +11,23 @@ import UIKit
 class Repo {
     
     let name: String
-    let description: String?
-    let language: String?
+    let description: String
+    let language: String
     let date: String
     let isForked: Bool
     let numOfStars: Int
+    let url: String
     
     init?(json: [String: Any]) {
         
-        if let name = json["name"] as? String, let date = json["created_at"] as? String, let isForked = json["fork"] as? Bool, let numOfStars = json["stargazers_count"] as? Int {
+        if let name = json["name"] as? String, let date = json["created_at"] as? String, let isForked = json["fork"] as? Bool, let numOfStars = json["stargazers_count"] as? Int, let url = json["html_url"] as? String {
             self.name = name
             let index = date.range(of: "T", options: .backwards)?.lowerBound
             let newDate = date.substring(to: index!)
             self.date = String(describing: newDate)
             self.isForked = isForked
             self.numOfStars = numOfStars
+            self.url = url
         } else {
             return nil
         }
