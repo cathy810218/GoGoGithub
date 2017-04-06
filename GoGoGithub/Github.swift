@@ -34,10 +34,7 @@ class Github {
         self.components = URLComponents()
         self.components.scheme = "https"
         self.components.host = "api.github.com"
-        if let token = UserDefaults.standard.getAccessToken() {
-            let queryItem = URLQueryItem(name: "access_token", value: token)
-            self.components.queryItems = [queryItem]
-        }
+
     }
     
     func oAuthRequestWith(parameters: [String: String]) {
@@ -100,7 +97,6 @@ class Github {
     }
     
     private func getCodeFrom(url: URL) throws -> String {
-        
         // separate the key value paring
         guard let code = url.absoluteString.components(separatedBy: "=").last else {
             throw GithubAuthError.extractingCode
@@ -109,7 +105,10 @@ class Github {
     }
     
     func getRepos(completion: @escaping ([Repo]?) -> Void){
-        
+        if let token = UserDefaults.standard.getAccessToken() {
+            let queryItem = URLQueryItem(name: "access_token", value: token)
+            self.components.queryItems = [queryItem]
+        }
         func returnToMain(result: [Repo]?) {
             OperationQueue.main.addOperation {
                 completion(result)
@@ -141,15 +140,13 @@ class Github {
                         returnToMain(result: repos)
                     }
                 } catch {
-                    print("paring json error: \(error)")
+                    print("parsing json error: \(error)")
                 }
             }
         }.resume()
     }
     
     func accessTokenFrom(_ string: String) -> String? {
-        print(string)
-        
         if string.contains("access_token") {
             let components = string.components(separatedBy: "&")
             for component in components {
@@ -163,5 +160,45 @@ class Github {
             }
         }
         return nil
+    }
+    
+    func getUsers(completion: @escaping ([User]?) -> Void) {
+        func returnToMain(result: [User]?) {
+            OperationQueue.main.addOperation {
+                completion(result)
+            }
+        }
+        self.components.path = "/users"
+        
+        guard let url = self.components.url else {
+            returnToMain(result: nil)
+            return
+        }
+        print(url)
+        
+        self.session.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                returnToMain(result: nil)
+                return
+            }
+            
+            if let data = data {
+                var users = [User]()
+                
+                do {
+                    if let rootJson = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [[String: Any]] {
+                        
+                        for eachJson in rootJson {
+                            if let user = User(json: eachJson) {
+                                users.append(user)
+                            }
+                        }
+                        returnToMain(result: users)
+                    }
+                } catch {
+                    print("parsing json error: \(error)")
+                }
+            }
+            }.resume()
     }
 }
