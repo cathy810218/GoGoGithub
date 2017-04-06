@@ -86,7 +86,7 @@ extension UserSearchViewController: UICollectionViewDelegate, UICollectionViewDa
         cell.user = userArray[indexPath.row]
         return cell
     }
-    
+        
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let userArray = searchedUsers ?? allUsers
         let selectedUser = userArray[indexPath.row]

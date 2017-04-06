@@ -22,5 +22,9 @@ class UserCollectionViewCell: UICollectionViewCell {
                 })
             }
         }
+        
+        willSet {
+            self.avatarImageView.image = nil
+        }
     }
 }
