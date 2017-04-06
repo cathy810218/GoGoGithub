@@ -114,13 +114,13 @@ extension RepoViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: DetailViewController.identifier, sender: nil)
+        performSegue(withIdentifier: DetailViewController.identifier, sender: nil)
     }
 }
 
 //MARK: UIViewControllerTransitioningDelegate
 extension RepoViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return CustomTransition(duration: 1)
+        return CustomTransition(duration: 0.5)
     }
 }

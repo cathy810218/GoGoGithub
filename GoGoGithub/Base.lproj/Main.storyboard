@@ -104,7 +104,7 @@
                             <constraint firstItem="95K-hd-2z9" firstAttribute="top" secondItem="DkD-5U-Iv6" secondAttribute="bottom" id="odO-EC-D06"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="My Repos" id="bdZ-Fj-1gC"/>
+                    <tabBarItem key="tabBarItem" title="My Repos" image="Repository-64" id="bdZ-Fj-1gC"/>
                     <connections>
                         <outlet property="searchBar" destination="DkD-5U-Iv6" id="1d5-et-WWI"/>
                         <outlet property="tableView" destination="95K-hd-2z9" id="7lm-M8-ivV"/>
@@ -214,6 +214,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="95w-4Y-D8a" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="pz4-nY-art">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
@@ -226,7 +227,7 @@
             </objects>
             <point key="canvasLocation" x="949.60000000000002" y="123.68815592203899"/>
         </scene>
-        <!--Users-->
+        <!--User-->
         <scene sceneID="lHd-qK-jrU">
             <objects>
                 <viewController id="t1V-Jr-dhL" customClass="UserSearchViewController" customModule="GoGoGithub" customModuleProvider="target" sceneMemberID="viewController">
@@ -304,7 +305,7 @@
                             <constraint firstItem="ayd-KI-laP" firstAttribute="top" secondItem="gex-xu-0GL" secondAttribute="bottom" id="uil-B7-ChK"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Users" id="IRC-Ye-gru"/>
+                    <tabBarItem key="tabBarItem" title="User" image="User-48" id="IRC-Ye-gru"/>
                     <connections>
                         <outlet property="collectionView" destination="gex-xu-0GL" id="gPx-Cw-HCf"/>
                         <outlet property="searchBar" destination="1zN-n7-rQT" id="uN9-Cf-vgu"/>
@@ -316,6 +317,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Repository-64" width="32" height="32"/>
+        <image name="User-48" width="24" height="24"/>
         <image name="github-logo" width="1500" height="1125"/>
     </resources>
 </document>
