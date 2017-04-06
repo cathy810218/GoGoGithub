@@ -31,7 +31,7 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func backButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func openSafariPressed(_ sender: Any) {

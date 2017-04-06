@@ -49,8 +49,9 @@ class RepoViewController: UIViewController {
             }
             // Setting custom transition delegate to the destinationController
             destinationController.transitioningDelegate = self
-            if let selectedIndex = self.tableView.indexPathForSelectedRow {
-                let selectedRepo = self.allRepos[selectedIndex.row]
+            if let selectedIndex = tableView.indexPathForSelectedRow {
+                var repoArray = filteredRepos ?? allRepos
+                let selectedRepo = repoArray[selectedIndex.row]
                 destinationController.repo = selectedRepo
             }
         }
@@ -61,21 +62,21 @@ class RepoViewController: UIViewController {
 extension RepoViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let searchText = searchBar.text {
-            self.filteredRepos = self.allRepos.filter({$0.name.lowercased() == searchText.lowercased()})
-            self.tableView.reloadData()
+            filteredRepos = allRepos.filter({$0.name.lowercased() == searchText.lowercased()})
+            tableView.reloadData()
         }
         searchBar.resignFirstResponder()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filteredRepos = self.allRepos.filter({$0.name.lowercased().contains(searchText.lowercased())})
-        self.tableView.reloadData()
+        filteredRepos = allRepos.filter({$0.name.lowercased().contains(searchText.lowercased())})
+        tableView.reloadData()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         if let searchText = searchBar.text {
-            self.filteredRepos = self.allRepos.filter({$0.name.lowercased().contains(searchText.lowercased())})
-            self.tableView.reloadData()
+            filteredRepos = allRepos.filter({$0.name.lowercased().contains(searchText.lowercased())})
+            tableView.reloadData()
         }
     }
     
@@ -85,8 +86,8 @@ extension RepoViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text?.removeAll()
-        self.filteredRepos = nil
-        self.tableView.reloadData()
+        filteredRepos = nil
+        tableView.reloadData()
         searchBar.resignFirstResponder()
     }
 }
